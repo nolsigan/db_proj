@@ -10,6 +10,9 @@ public class Control {
 		DBConnection dbc;
 		int mode;
 		
+		String name;
+		int id;
+		
 		/* connect to DB */
 		dbc = new DBConnection();
 		dbc.connect();
@@ -19,6 +22,8 @@ public class Control {
 		Login ln = new Login(dbc);
 		
 		mode = ln.login();
+		name = ln.getName();
+		id = ln.getId();
 		
 		
 		if (mode == 1) {

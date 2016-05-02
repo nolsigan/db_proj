@@ -56,7 +56,11 @@ public class Login {
 				System.exit(-1);
 			}
 			
-			if (loginResult == 1 || loginResult == 2) break;
+			if (loginResult == 1 || loginResult == 2) {
+				id = inId;
+				name = inName;
+				break;
+			}		
 			else if (loginResult == -1) {
 				System.out.println("Error in login query");
 				System.exit(-1);

@@ -2,6 +2,7 @@ package school_system;
 
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.io.FilterInputStream;
 
 public class Login {
 	
@@ -29,7 +30,12 @@ public class Login {
 		String inId;
 		int loginResult = -1;
 		String inName;
-		Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(new FilterInputStream(System.in) {
+			@Override
+			public void close() {
+				
+			}
+		});
 		
 		System.out.println("Welcome\n");
 		

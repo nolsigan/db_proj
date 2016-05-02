@@ -81,4 +81,44 @@ public class DBConnection {
 		
 		return 0;
 	}
+	
+	/*
+	 * getStudentCredit
+	 * 
+	 * return total credit of a student
+	 * 
+	 * if error return -1
+	 */
+	public int getStudentCredit(String id) throws SQLException {
+		
+		String query = "select tot_cred from student where id=?";
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		
+		if (rs.next()) return rs.getInt(1);
+		
+		return -1;
+	}
+	
+	/*
+	 * getStudentDept
+	 * 
+	 * return dept name of a student
+	 * 
+	 * if error return null
+	 */
+	public String getStudentDept(String id) throws SQLException {
+		
+		String query = "select dept_name from student where id=?";
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		
+		if (rs.next()) return rs.getString(1);
+		
+		return null;
+	}
 }

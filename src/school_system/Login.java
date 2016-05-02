@@ -1,15 +1,13 @@
 package school_system;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Login {
 	
-	private int id;
+	private String id;
 	private String name;
 	private DBConnection dbc;
-	
-	private final int STUDENT = 1;
-	private final int INSTRUCTOR = 2;
 	
 	
 	/* Constructor */
@@ -18,7 +16,7 @@ public class Login {
 	
 	/* basic get functions */
 	public String getName() { return name; }
-	public int getId() { return id; }
+	public String getId() { return id; }
 	
 	
 	/* login function
@@ -28,23 +26,43 @@ public class Login {
 	 */
 	public int login() {
 		
-		int inId;
-		String inName;		
+		String inId;
+		int loginResult = -1;
+		String inName;
 		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("Welcome\n");
-		System.out.println("Please sign in");
-		System.out.print("ID	: ");		
-		inId = scan.nextInt();
 		
-		System.out.print("Name	: ");
-		inName = scan.next();
-		
-		System.out.println(inId + ", " + inName);
+		while (true) {
+			System.out.println("Please sign in");
+			System.out.print("ID	: ");		
+			inId = scan.next();
+			
+			System.out.print("Name	: ");
+			inName = scan.next();
+			
+			System.out.println("");
+			
+			try {
+				loginResult = dbc.login(inId, inName);
+			} catch (SQLException e) {
+				System.out.println(e);
+				System.exit(-1);
+			}
+			
+			if (loginResult == 1 || loginResult == 2) break;
+			else if (loginResult == -1) {
+				System.out.println("Error in login query");
+				System.exit(-1);
+			}
+			else if (loginResult == 0) {
+				System.out.println("Wrong authentication");
+			}
+		}	
 		
 		scan.close();
 		
-		return 123456789;
+		return loginResult;
 	}
 
 }

@@ -11,7 +11,7 @@ public class Control {
 		int mode;
 		
 		String name;
-		int id;
+		String id;
 		
 		/* connect to DB */
 		dbc = new DBConnection();
@@ -28,6 +28,11 @@ public class Control {
 		
 		if (mode == 1) {
 			// student menu
+			
+			System.out.println("Please select student menu");
+			System.out.println("1) Student report");
+			System.out.println("2) View time table");
+			System.out.println("3) Exit");
 			
 		} else if (mode == 2) {
 			// instructor menu

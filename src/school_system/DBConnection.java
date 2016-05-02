@@ -48,4 +48,37 @@ public class DBConnection {
 	
 	
 	/* queries */
+	
+	
+	/*
+	 * login
+	 * 
+	 * return 0 on failure
+	 * 1 on student success
+	 * 2 on instructor success
+	 * 
+	 */
+	public int login(String id, String name) throws SQLException {
+		
+		String qStudent = "select * from student where id=? and name=?";
+		String qInstructor = "select * from instructor where ID=? and name=?";
+		
+		/* check student table */
+		pstmt = conn.prepareStatement(qStudent);
+		pstmt.setString(1, id);
+		pstmt.setString(2, name);
+		rs = pstmt.executeQuery();
+		
+		if (rs.next()) return 1;
+		
+		/* check instructor table */
+		pstmt = conn.prepareStatement(qInstructor);
+		pstmt.setString(1, id);
+		pstmt.setString(2, name);
+		rs = pstmt.executeQuery();
+		
+		if (rs.next()) return 2;
+		
+		return 0;
+	}
 }

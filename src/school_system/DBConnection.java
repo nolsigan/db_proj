@@ -1,6 +1,7 @@
 package school_system;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBConnection {
 
@@ -120,5 +121,40 @@ public class DBConnection {
 		if (rs.next()) return rs.getString(1);
 		
 		return null;
+	}
+	
+	public String getStudentname(String id) throws SQLException {
+		
+		String query = "select name from student where id =?";
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		
+		if (rs.next()) return rs.getString(1);
+		
+		return null;
+	}
+	/*
+	 * getAdvisee
+	 * 
+	 * return advisee id list of instructor
+	 * 
+	 * if error return null
+	 */
+	public ArrayList<String> getAdviseeId(String id) throws SQLException {
+		
+		String query = "select s_id from advisor where i_id=?";
+		ArrayList<String> result = new ArrayList<String>();
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()){
+			result.add(rs.getString(1));
+		}
+		
+		return result;
 	}
 }

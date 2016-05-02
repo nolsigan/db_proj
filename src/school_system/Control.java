@@ -41,19 +41,24 @@ public class Control {
 			
 			Student st = new Student(dbc, id, name);
 			
-			System.out.println("Please select student menu");
-			System.out.println("1) Student report");
-			System.out.println("2) View time table");
-			System.out.println("3) Exit");
-			
-			System.out.print(">> ");	
-			menu = scan.next();
-			
-			if (menu.equals("1")) {
+			while (true) {
+				System.out.println("Please select student menu");
+				System.out.println("1) Student report");
+				System.out.println("2) View time table");
+				System.out.println("0) Exit");
 				
-				st.report();
+				System.out.print(">> ");	
+				menu = scan.next();
+				
+				if (menu.equals("1")) {			
+					st.report();
+				} else if (menu.equals("2")) {
+					
+				} else if (menu.equals("0")) break;
+				
+				System.out.println("");
 			}
-			
+		
 			scan.close();
 			
 		} else if (mode == 2) {

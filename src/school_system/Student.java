@@ -25,10 +25,12 @@ public class Student {
 		dept = dbc.getStudentDept(id);
 		credit = dbc.getStudentCredit(id);
 		
-		System.out.println("Welcome " + name);
+		System.out.println("\nWelcome " + name);
 		System.out.println("You are a member of " + dept);
 		System.out.println("You have taken total " + credit + " credits");
+		System.out.println("\nSemester report\n");
 		
-	}
+		dbc.printReport(id);
+	}	
 
 }

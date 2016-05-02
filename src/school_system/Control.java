@@ -58,7 +58,12 @@ public class Control {
 			
 		} else if (mode == 2) {
 			// instructor menu
+			Scanner scan = new Scanner(new FilterInputStream(System.in) {
+				@Override
+				public void close() {}
+			});
 			
+			scan.close();
 		} else {	
 			System.out.println("login failure!");
 			System.exit(-1);

@@ -19,8 +19,21 @@ public class Instructor {
 	/* Course report */
 	public void course() throws SQLException {
 		
-		String semester;
+		ArrayList<String> list = dbc.getRecentSemester(id);
 		
+		if(list!=null){
+			String semester = list.get(0);
+			String year = list.get(1);
+			
+			System.out.println("Course report - " + year + " " + semester);
+			
+			dbc.printTeachingCourse(id, semester, year);
+		}
+		/* never taught anything */
+		else{
+			
+		}
+		System.out.println("");
 	}
 	
 	/* Advisee report */
@@ -30,11 +43,12 @@ public class Instructor {
 		System.out.println("ID	 name	 dept_name	 tot_cred");
 		
 		for(int i = 0; i<list.size() ; i++){
-			String adv_name = dbc.getStudentname(list.get(i));
+			String adv_name = dbc.getStudentName(list.get(i));
 			String adv_dept = dbc.getStudentDept(list.get(i));
 			int adv_cred = dbc.getStudentCredit(list.get(i));
 			System.out.println(list.get(i) + "	" + adv_name + "	" + adv_dept + "	" + adv_cred);
 		}
 		
+		System.out.println("");
 	}
 }

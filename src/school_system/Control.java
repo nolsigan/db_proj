@@ -65,22 +65,27 @@ public class Control {
 			});
 			
 			Instructor inst = new Instructor(dbc, id, name);
-			System.out.println("Please select instructor menu");
-			System.out.println("1) Course report");
-			System.out.println("2) Advisee table");
-			System.out.println("0) Exit");
 			
-			System.out.print(">> ");
-			menu = scan.nextInt();
-			switch(menu){
-			case 1:
-				inst.course();
-				break;
-			case 2:
-				inst.advisee();
-				break;
-			case 0:
-				break;
+			while(true){
+				
+				System.out.println("Please select instructor menu");
+				System.out.println("1) Course report");
+				System.out.println("2) Advisee table");
+				System.out.println("0) Exit");
+				
+				System.out.print(">> ");
+				menu = scan.nextInt();
+				
+				if(menu == 1){
+					inst.course();
+					continue;
+				}
+				if(menu == 2){
+					inst.advisee();
+					continue;
+				}
+				if(menu == 0) break;
+				
 			}
 			
 			scan.close();

@@ -83,7 +83,7 @@ public class Control {
 				
 				System.out.println("Please select instructor menu");
 				System.out.println("1) Course report");
-				System.out.println("2) Advisee table");
+				System.out.println("2) Advisee report");
 				System.out.println("0) Exit");
 				
 				System.out.print(">> ");
@@ -111,17 +111,5 @@ public class Control {
 		dbc.close();
 	}
 	
-	
-	/* student manage function */
-	public void student() {
-		
-	}
-	
-	
-	/* instructor manage function */
-	public void instructor() {
-		
-	}
-
 
 }

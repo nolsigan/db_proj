@@ -50,9 +50,17 @@ public class Control {
 				System.out.print(">> ");	
 				menu = scan.next();
 				
-				if (menu.equals("1")) {			
+				if (menu.equals("1")) {
+					// student report			
 					st.report();
 				} else if (menu.equals("2")) {
+					// time table
+					st.semesterMenu();
+					System.out.print(">> ");
+					
+					int sMenu = scan.nextInt();
+					
+					st.timeTable(sMenu);
 					
 				} else if (menu.equals("0")) break;
 				

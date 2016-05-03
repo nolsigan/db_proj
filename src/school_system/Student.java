@@ -32,5 +32,21 @@ public class Student {
 		
 		dbc.printReport(id);
 	}	
+	
+	
+	/* semester menu */
+	public void semesterMenu() throws SQLException {
+		
+		System.out.println("\nPlease select semester to view");
+		
+		dbc.printSemester(id);
+	}
+	
+	
+	/* time table */
+	public void timeTable(int menu) throws SQLException {
+		
+		dbc.printTimeTable(id, menu);
+	}
 
 }

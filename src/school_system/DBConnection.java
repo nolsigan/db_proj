@@ -141,7 +141,7 @@ public class DBConnection {
 			
 			System.out.print(year + "		" + sem + "   GPA : ");
 			
-			if (!checkNullGrade(id, year, sem)) System.out.println(calGPA(id, year, sem));
+			if (!checkNullGrade(id, year, sem)) System.out.println( String.format("%.2f", calGPA(id, year, sem)));
 			else System.out.println("");
 			
 			System.out.println("course_id	title	dept_name	credits	grade");
@@ -180,7 +180,7 @@ public class DBConnection {
 	public float calGPA(String id, int year, String semester) throws SQLException {
 		
 		String grToFl = "decode(grade, 'A+', 4.3, 'A', 4.0, 'A-', 3.7, 'B+', 3.3, 'B', 3.0, 'B-', 2.7, 'C+', 2.3, 'C', 2.0, 'C-', 1.7, 'D+', 1.3, 'D', 1.0, 'D-', 0.7, 'F', 0.0)";
-		String query = "select avg(" + grToFl + ") from takes where id=? and year=? and semester=?";
+		String query = "select sum(" + grToFl + " * credits) / sum(credits) from takes natural join course where id=? and year=? and semester=?";
 		
 		pstmt = conn.prepareStatement(query);
 		pstmt.setString(1, id);
@@ -214,5 +214,72 @@ public class DBConnection {
 			if (rs.getString(5) != null) System.out.println(rs.getString(5));
 			else System.out.println("");
 		}
+	}
+	
+	
+	/*
+	 * printSemester
+	 * 
+	 * print semesters of student
+	 * 
+	 */
+	public void printSemester(String id) throws SQLException {
+		
+		int i = 1;
+		String query = "select year, semester from takes where id=? group by (year, semester) order by year desc, decode(semester, 'Spring', 4, 'Summer', 3, 'Fall', 2, 'Winter', 1)";
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			
+			System.out.println(i + ") " + rs.getString(1) + " " + rs.getString(2));
+			i++;
+		}
+		
+	}
+	
+	
+	/*
+	 * printTimeTable
+	 * 
+	 * print time table of chosen semester
+	 * 
+	 */
+	public void printTimeTable(String id, int menu) throws SQLException {
+		
+		int year;
+		String semester;
+		
+		// get year, semester of given input
+		String query = "select year, semester from takes where id=? group by (year, semester) order by year desc, decode(semester, 'Spring', 4, 'Summer', 3, 'Fall', 2, 'Winter', 1)";
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		
+		for (int i=0; i < menu; ++i) rs.next();
+		
+		year = rs.getInt(1);
+		semester = rs.getString(2);
+		
+		
+		// get time table of the year, semester
+		query = "select course_id, title, day, start_hr, start_min, end_hr, end_min from ((takes natural join section) natural join course) natural join time_slot where ID=? and year=? and semester=?";
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, id);
+		pstmt.setInt(2, year);
+		pstmt.setString(3, semester);
+		rs = pstmt.executeQuery();
+		
+		System.out.println("\ncourse_id	title	day	start_time	end_time");
+		
+		while (rs.next()) {
+			
+			System.out.println(rs.getString(1) + "	" + rs.getString(2) + "	" + rs.getString(3) + "	" + rs.getInt(4) + " : " + rs.getInt(5) + "	" + rs.getInt(6) + " : " + rs.getInt(7));
+		}
+		System.out.println("");
 	}
 }

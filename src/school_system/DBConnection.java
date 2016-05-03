@@ -82,6 +82,9 @@ public class DBConnection {
 		return 0;
 	}
 	
+	
+	/* student queries */
+	
 	/*
 	 * getStudentCredit
 	 * 

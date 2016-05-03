@@ -71,7 +71,37 @@ public class Control {
 			
 		} else if (mode == 2) {
 			// instructor menu
+			int menu;
+			Scanner scan = new Scanner(new FilterInputStream(System.in) {
+				@Override
+				public void close() {}
+			});
 			
+			Instructor inst = new Instructor(dbc, id, name);
+			
+			while(true){
+				
+				System.out.println("Please select instructor menu");
+				System.out.println("1) Course report");
+				System.out.println("2) Advisee table");
+				System.out.println("0) Exit");
+				
+				System.out.print(">> ");
+				menu = scan.nextInt();
+				
+				if(menu == 1){
+					inst.course();
+					continue;
+				}
+				if(menu == 2){
+					inst.advisee();
+					continue;
+				}
+				if(menu == 0) break;
+				
+			}
+			
+			scan.close();
 		} else {	
 			System.out.println("login failure!");
 			System.exit(-1);

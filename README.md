@@ -20,6 +20,12 @@ javac -cp [tibero_jdbc_driver] school_system\*.java
 
 #### in src directory
 
+##### Windows
 ```sh
 java -cp [tibero_jdbc_driver];. school_system.Control
+```
+
+##### Linux
+```sh
+java -cp [tibero_jdbc_driver]:. school_system.Control
 ```
